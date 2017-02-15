@@ -1,4 +1,3 @@
-cordova.define("com.qlync.android.digitus", function(require, exports, module) {
 "use strict";
 function digitus() {
 }
