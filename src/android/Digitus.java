@@ -73,6 +73,7 @@ public class Digitus extends CordovaPlugin {
 			String connectionType = data[0];
 			String localPort = data[1];
 			Log.d(TAG, "localPort: " + localPort + ", message: " + message);
+			callbackContext.success(localPort);
 		}
 	}
 	private void initSDK() throws JSONException {
