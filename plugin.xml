@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="com.qlync.android"
+        version="0.0.1">
+
+  <name>digitus</name>
+  <description>
+    Digitus SDK plugin.
+  </description>
+
+  
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/digitus.js" target="js/digitus.js"/>
+
+  <js-module src="www/digitus.js" name="digitus">
+    <clobbers target="digitus" />
+  </js-module>
+
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/widget">
+      <feature name="digitus">
+        <param name="ios-package" value="CDVdigitus" />
+      </feature>
+    </config-file>
+    
+    <source-file src="Libraries/libgoogle.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libp2p-client-license.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libp2p-client.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libp2p-common.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libp2p-factory.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libp2p-service-monitor.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libpj-arm-apple-darwin9.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libpjlib-util-arm-apple-darwin9.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libpjnath-arm-apple-darwin9.a" framework="true" target-dir="digitus/Libraries"/>
+    <source-file src="Libraries/libpolarssl.a" framework="true" target-dir="digitus/Libraries"/>
+    
+    <framework src="CFNetwork.framework" weak="true" />
+    <framework src="UIKit.framework" weak="true" />
+    <framework src="Foundation.framework" weak="true" />
+
+    <resource-file src="Resources/license" target="Resources" />
+    <resource-file src="Resources/certificate" target="Resources" />
+
+    <header-file src="src/ios/CDVdigitus.h" target-dir="digitus"/>
+    <source-file src="src/ios/CDVdigitus.m" target-dir="digitus"/>
+  
+    <header-file src="src/ios/SAT/SatManager.h" target-dir="digitus/SAT"/>
+    <source-file src="src/ios/SAT/SatManager.mm" target-dir="digitus/SAT"/>
+  
+  </platform>
+<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="digitus">
+				<param name="android-package" value="com.qlync.android.Digitus" />
+			</feature>
+		</config-file>
+		
+		<config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:name="com.qlync.android.sat.SatService"/>
+        </config-file>
+		
+		<config-file target="AndroidManifest.xml" parent="/manifest">
+			<uses-permission android:name="android.permission.INTERNET"/>
+			<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+		</config-file>
+
+		<source-file src="libs/armeabi-v7a/libp2pTunnel-jni.so" target-dir="libs/armeabi-v7a" />
+		<source-file src="libs/httpmime-4.2.1.jar" target-dir="libs"/>
+		<resource-file src="Resources/licenseDigitus" target="assets/licenseDigitus" />
+		<resource-file src="Resources/certificateDigitus" target="assets/certificateDigitus" />
+		
+		<source-file src="src/android/Digitus.java" target-dir="src/com/qlync/android" />
+		<source-file src="src/android/sat/SatManager.java" target-dir="src/com/qlync/sat" />
+		<source-file src="src/android/sat/DeviceEntryRequest.java" target-dir="src/com/qlync/sat" />
+		<source-file src="src/android/network/WifiUtils.java" target-dir="src/com/qlync/android/network" />
+		<source-file src="src/android/storage/StorageUtils.java" target-dir="src/com/qlync/android/storage" />		
+		<source-file src="src/android/sat/SatService.java" target-dir="src/com/qlync/android/sat" />
+
+	</platform>
+</plugin>
