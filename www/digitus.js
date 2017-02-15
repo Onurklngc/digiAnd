@@ -28,4 +28,3 @@ digitus.install = function () {
 
 cordova.addConstructor(digitus.install);
 
-});
