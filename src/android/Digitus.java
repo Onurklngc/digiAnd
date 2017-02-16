@@ -24,6 +24,8 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 
+import com.qlync.android.sample.MainActivity;
+import com.qlync.android.sample.WebLiveView;
 import com.qlync.android.sat.SatService;
 import com.qlync.sat.SatManager;
 
@@ -44,10 +46,10 @@ public class Digitus extends CordovaPlugin {
 		this.context = cordova.getActivity();
 		this.intent = new Intent(cordova.getActivity(), SatService.class);;
 		messageHandler = new WebLiveViewHandler();
-		JSONObject options = null;
+		JSONObject options;
 		Log.v("I am here 1", "String");
-
 		if (ACTION_START.equals(action)) {
+			options = args.getJSONObject(1);
 			return runSDK(args.getString(0), options);
 		} else if (ACTION_STOP.equals(action)) {
 			stopSDK();
@@ -72,7 +74,7 @@ public class Digitus extends CordovaPlugin {
 			String[] data = ((String) message.obj).split(":;");
 			String connectionType = data[0];
 			String localPort = data[1];
-			Log.d(TAG, "localPort: " + localPort + ", message: " + message);
+			Log.d(TAG,"connectionType: " + connectionType + "localPort: " + localPort + ", message: " + message);
 			callbackContext.success(localPort);
 		}
 	}
@@ -84,14 +86,18 @@ public class Digitus extends CordovaPlugin {
 
 	private boolean runSDK(final String url, JSONObject options) throws JSONException {
 		Log.v("I am here", url);
-
+		int port = 554;
+		if (options.has("port")){
+			port=options.getInt("port");
+			Log.v("I am here", Integer.toString(port));
+		}
 		Messenger messenger = new Messenger(messageHandler);
 		Intent intent = new Intent();
 		intent.setAction(SatService.SAT_SERVICE_BROADCAST_ACTION);
 		intent.putExtra("command", "start_caller");
 		intent.putExtra("messenger", messenger);
 		intent.putExtra("uid", url);
-		intent.putExtra("port", 554);
+		intent.putExtra("port", port);
 		context.sendBroadcast(intent);
 
 		return true;
