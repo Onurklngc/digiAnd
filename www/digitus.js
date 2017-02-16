@@ -3,7 +3,7 @@ function digitus() {
 }
 
 digitus.prototype.initStream = function () {
-cordova.exec(null, null, "digitus", "initSDK");
+cordova.exec(null, null, "digitus", "initSDK",[]);
 };
 
 digitus.prototype.playStream = function ( success, fail, uid, options) {
@@ -14,7 +14,7 @@ digitus.prototype.playStream = function ( success, fail, uid, options) {
 };
 
 digitus.prototype.stopStream = function () {
-cordova.exec(null, null, "digitus", "stopSDK");
+cordova.exec(null, null, "digitus", "stopSDK",[]);
 };
 
 
