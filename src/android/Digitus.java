@@ -24,8 +24,6 @@ import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
 
-import com.qlync.android.sample.MainActivity;
-import com.qlync.android.sample.WebLiveView;
 import com.qlync.android.sat.SatService;
 import com.qlync.sat.SatManager;
 
