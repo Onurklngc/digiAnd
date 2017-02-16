@@ -195,7 +195,9 @@ public class SatService extends Service {
 					sendMessage(messenger, message);
 				}
 				else if (command.equals("stop_caller")) {
-					satManager.stopCaller();
+					if(satManager != null) {
+						satManager.stopCaller();
+					}
 				}
 				else if (command.equals("start_callee")) {
 					DeviceEntryRequest deviceEntryRequest = new DeviceEntryRequest();
